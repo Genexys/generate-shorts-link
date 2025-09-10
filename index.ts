@@ -1,5 +1,10 @@
 import express from 'express';
 import { YtDlp } from 'ytdlp-nodejs';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const cookies = process.env.YOUTUBE_COOKIES;
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -9,13 +14,12 @@ app.get('/yt/:videoId', async (req, res) => {
   const { videoId } = req.params;
 
   try {
-    // Получение информации о видео с помощью ytdlp-nodejs
+    const options = cookies ? { cookiesFromBrowser: cookies } : {};
     const info = await ytdlp.getInfoAsync(
-      `https://www.youtube.com/watch?v=${videoId}`
+      `https://www.youtube.com/watch?v=${videoId}`,
+      options
     );
 
-    // Поиск прямой ссылки на видеофайл. yt-dlp предоставляет более гибкие данные.
-    // Возможно, вам придется выбрать нужный формат (например, mp4)
     if ('formats' in info) {
       const videoFormat = info.formats.find(
         format => format.ext === 'mp4' && (format.height ?? 0) <= 720
@@ -26,7 +30,6 @@ app.get('/yt/:videoId', async (req, res) => {
         return res.status(404).send('No suitable video format found');
       }
 
-      // Формируем HTML с мета-тегами для Discord и Telegram
       const html = `
                 <!DOCTYPE html>
                 <html lang="ru">
