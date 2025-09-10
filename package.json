@@ -1,0 +1,29 @@
+{
+  "name": "parser-shorts",
+  "version": "1.0.0",
+  "description": "parser for shorts videos",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node index.js",
+    "dev": "ts-node index.ts",
+    "railway:start": "npm start",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.3",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "prettier": "^3.6.2",
+    "ytdl-core": "^4.11.5",
+    "ytdlp-nodejs": "^2.3.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.13",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.9.2"
+  },
+  "author": "genexys",
+  "license": "MIT",
+  "type": "commonjs"
+}
