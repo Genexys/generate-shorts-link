@@ -14,7 +14,8 @@ app.get('/yt/:videoId', async (req, res) => {
   const { videoId } = req.params;
 
   try {
-    const options = cookies ? { cookiesFromBrowser: cookies } : {};
+    const options = cookies ? { cookies: cookies } : {};
+
     const info = await ytdlp.getInfoAsync(
       `https://www.youtube.com/watch?v=${videoId}`,
       options
