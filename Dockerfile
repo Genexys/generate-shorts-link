@@ -2,7 +2,11 @@ FROM node:18-alpine
 
 RUN apk add --no-cache python3 py3-pip
 
-RUN pip3 install yt-dlp
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+RUN pip install yt-dlp
 
 WORKDIR /app
 
